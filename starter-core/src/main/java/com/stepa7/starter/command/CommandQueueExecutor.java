@@ -2,9 +2,8 @@ package com.stepa7.starter.command;
 
 import com.stepa7.starter.android.Android;
 import com.stepa7.starter.android.AndroidService;
-import com.stepa7.starter.audit.WeylandWatchingYou;
+import com.stepa7.starter.metrics.MetricsService;
 import jakarta.annotation.PostConstruct;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,26 +20,10 @@ public class CommandQueueExecutor {
     private final AndroidService androidService;
     private final ThreadPoolExecutor threadPoolExecutor;
     private final CommandExecutionService commandExecutionService;
-
-//    @WeylandWatchingYou
-//    public void executeCommand(Android android, Command command) {
-////        System.out.println("Android" + android.getName() + "starts " + command.toString());
-//        android.setBusy(true);
-//
-//        try {
-//            Thread.sleep(5000);
-////            System.out.println(command.toString() + " is completed");
-//
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            android.setBusy(false);
-////            System.out.println("Android" + android.getName() + "completed " + command.toString());
-//        }
-//
-//    }
+    private final MetricsService metricsService;
 
     public void executeImmediate(Command command) throws InterruptedException {
+        metricsService.updateQueueSize(commandsQueue.size());
         Optional<Android> optionalAndroid;
         // Wait for available android
         while ((optionalAndroid = androidService.getAvailableAndroid()).isEmpty()) {
@@ -55,7 +38,10 @@ public class CommandQueueExecutor {
         Thread dispatcher = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()){
                 try {
+                    metricsService.updateQueueSize(commandsQueue.size());
                     Command command = commandsQueue.take();
+                    metricsService.updateQueueSize(commandsQueue.size()); // Decreased
+
                     Optional<Android> optionalAndroid;
                     // Wait for available android
                     while ((optionalAndroid = androidService.getAvailableAndroid()).isEmpty()) {

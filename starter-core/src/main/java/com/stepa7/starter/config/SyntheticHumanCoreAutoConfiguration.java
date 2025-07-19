@@ -1,9 +1,9 @@
 package com.stepa7.starter.config;
 
-import com.stepa7.starter.android.Android;
 import com.stepa7.starter.android.AndroidService;
-import com.stepa7.starter.audit.AuditAspect;
 import com.stepa7.starter.command.Command;
+import com.stepa7.starter.metrics.MetricsService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +38,19 @@ public class SyntheticHumanCoreAutoConfiguration {
         return new AndroidService();
     }
 
-//    @Bean
-//    public AuditAspect auditAspect() {
-//        return new AuditAspect();
-//    }
+    @Bean
+    @ConditionalOnMissingBean(MetricsService.class)
+    public MetricsService metricsService() {
+        return new MetricsService() {
+            @Override
+            public void recordCommandExecuted(Command command) {
+                // no-op
+            }
+
+            @Override
+            public void updateQueueSize(int size) {
+                // no-op
+            }
+        };
+    }
 }

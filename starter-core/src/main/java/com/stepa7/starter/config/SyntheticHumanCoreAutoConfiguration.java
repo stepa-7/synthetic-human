@@ -1,5 +1,7 @@
 package com.stepa7.starter.config;
 
+import com.stepa7.starter.android.Android;
+import com.stepa7.starter.android.AndroidService;
 import com.stepa7.starter.command.Command;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,5 +30,10 @@ public class SyntheticHumanCoreAutoConfiguration {
                 20,
                 TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(MAX_QUEUE_SIZE));
+    }
+
+    @Bean
+    public AndroidService androidService() {
+        return new AndroidService();
     }
 }

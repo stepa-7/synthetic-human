@@ -21,7 +21,7 @@ public class CommandSender {
                 commandsQueue.add(command);
             }
         } else {
-            queueExecutor.executeCommand(command);
+            queueExecutor.executeImmediate(command);
         }
     }
 }

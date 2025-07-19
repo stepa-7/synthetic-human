@@ -8,3 +8,15 @@ Content-Type: application/json
   "message": "Wake up, Bishop.",
   "priority": "CRITICAL"
 }
+###
+
+GET http://localhost:8080/api/v1/android
+
+###
+POST http://localhost:8080/api/v1/android
+Content-Type: application/json
+
+{
+  "name": "add",
+  "busy": false
+}

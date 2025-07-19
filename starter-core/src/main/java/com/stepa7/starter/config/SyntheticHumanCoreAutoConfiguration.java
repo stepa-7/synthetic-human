@@ -2,6 +2,7 @@ package com.stepa7.starter.config;
 
 import com.stepa7.starter.android.Android;
 import com.stepa7.starter.android.AndroidService;
+import com.stepa7.starter.audit.AuditAspect;
 import com.stepa7.starter.command.Command;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -36,4 +37,9 @@ public class SyntheticHumanCoreAutoConfiguration {
     public AndroidService androidService() {
         return new AndroidService();
     }
+
+//    @Bean
+//    public AuditAspect auditAspect() {
+//        return new AuditAspect();
+//    }
 }

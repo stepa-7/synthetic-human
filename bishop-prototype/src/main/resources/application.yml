@@ -1,3 +1,8 @@
 spring:
   application:
     name: bishop-prototype
+audit:
+  mode: console
+logging:
+  level:
+    com.stepa7.starter.audit: INFO

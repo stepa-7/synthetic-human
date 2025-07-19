@@ -5,10 +5,8 @@ import com.stepa7.starter.android.AndroidService;
 import com.stepa7.starter.command.Command;
 import com.stepa7.starter.command.CommandSender;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @RestController

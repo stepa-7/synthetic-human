@@ -2,6 +2,7 @@ package com.stepa7.starter.command;
 
 import com.stepa7.starter.android.Android;
 import com.stepa7.starter.android.AndroidService;
+import com.stepa7.starter.audit.WeylandWatchingYou;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -19,23 +20,25 @@ public class CommandQueueExecutor {
     private final BlockingQueue<Command> commandsQueue;
     private final AndroidService androidService;
     private final ThreadPoolExecutor threadPoolExecutor;
+    private final CommandExecutionService commandExecutionService;
 
-    public void executeCommand(Android android, Command command) {
-        System.out.println("Android" + android.getName() + "starts " + command.toString());
-        android.setBusy(true);
-
-        try {
-            Thread.sleep(5000);
-            System.out.println(command.toString() + " is completed");
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
-            android.setBusy(false);
-            System.out.println("Android" + android.getName() + "completed " + command.toString());
-        }
-
-    }
+//    @WeylandWatchingYou
+//    public void executeCommand(Android android, Command command) {
+////        System.out.println("Android" + android.getName() + "starts " + command.toString());
+//        android.setBusy(true);
+//
+//        try {
+//            Thread.sleep(5000);
+////            System.out.println(command.toString() + " is completed");
+//
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            android.setBusy(false);
+////            System.out.println("Android" + android.getName() + "completed " + command.toString());
+//        }
+//
+//    }
 
     public void executeImmediate(Command command) throws InterruptedException {
         Optional<Android> optionalAndroid;
@@ -44,7 +47,7 @@ public class CommandQueueExecutor {
             Thread.sleep(300);
         }
         Android android = optionalAndroid.get();
-        threadPoolExecutor.execute(() -> executeCommand(android, command));
+        threadPoolExecutor.execute(() -> commandExecutionService.executeCommand(android, command));
     }
 
     @PostConstruct
@@ -59,7 +62,7 @@ public class CommandQueueExecutor {
                         Thread.sleep(300);
                     }
                     Android android = optionalAndroid.get();
-                    threadPoolExecutor.execute(() -> executeCommand(android, command));
+                    threadPoolExecutor.execute(() -> commandExecutionService.executeCommand(android, command));
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

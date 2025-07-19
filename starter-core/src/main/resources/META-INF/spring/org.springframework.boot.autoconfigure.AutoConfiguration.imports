@@ -1,1 +1,2 @@
 com.stepa7.starter.config.SyntheticHumanCoreAutoConfiguration
+com.stepa7.starter.config.ExceptionHandlingAutoConfiguration

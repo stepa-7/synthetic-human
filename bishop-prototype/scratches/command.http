@@ -4,8 +4,35 @@ POST http://localhost:8080/api/v1/android
 Content-Type: application/json
 
 {
-  "name": "android1",
-  "busy": false
+  "name": "android1"
+}
+
+###
+
+###
+
+POST http://localhost:8080/api/v1/android
+Content-Type: application/json
+
+{
+  "name": "android2"
+}
+
+###
+
+GET http://localhost:8080/api/v1/android
+
+###
+
+PUT http://localhost:8080/api/v1/command
+Content-Type: application/json
+
+{
+  "author": "Yofaaaa",
+  "description": "dasf",
+  "time": "2016-05-24T15:54:14",
+  "message": "Wake up, Bishop.",
+  "priority": "COMMON"
 }
 
 ###
@@ -20,24 +47,9 @@ Content-Type: application/json
   "message": "Wake up, Bishop.",
   "priority": "CRITICAL"
 }
-###
-
-PUT http://localhost:8080/api/v1/command
-Content-Type: application/json
-
-{
-  "author": "Yofaaaa",
-  "description": "dasf",
-  "time": "2016-05-24T15:54:14",
-  "message": "Wake up, Bishop.",
-  "priority": "COMMON"
-}
-###
-
-GET http://localhost:8080/api/v1/android
 
 ###
-
+// metrics bishop_android_queue_size , bishop_commands_executed_total
 GET http://localhost:8080/actuator/prometheus
 
 ###

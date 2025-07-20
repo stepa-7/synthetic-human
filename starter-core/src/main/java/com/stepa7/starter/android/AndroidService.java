@@ -21,7 +21,7 @@ public class AndroidService {
         return storage
                 .values()
                 .stream().
-                filter(a -> !a.isBusy())
+                filter(Android::tryLock)
                 .findFirst();
     }
 

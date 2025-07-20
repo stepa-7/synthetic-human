@@ -13,14 +13,13 @@ public class CommandExecutionService {
 
     @WeylandWatchingYou
     public void executeCommand(Android android, Command command) {
-        android.setBusy(true);
         try {
             Thread.sleep(5000);
             metricsService.recordCommandExecuted(command);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            android.setBusy(false);
+            android.release();
         }
     }
 }

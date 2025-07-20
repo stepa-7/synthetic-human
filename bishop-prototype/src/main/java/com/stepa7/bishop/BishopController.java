@@ -32,6 +32,6 @@ public class BishopController {
 
     @GetMapping("/android")
     public ConcurrentMap<Long, Android> getAndroids() {
-         return androidService.getAndroids();
+        return androidService.getAndroids();
     }
 }

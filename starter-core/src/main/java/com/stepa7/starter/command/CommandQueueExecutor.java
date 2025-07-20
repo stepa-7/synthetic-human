@@ -48,7 +48,7 @@ public class CommandQueueExecutor {
     @PostConstruct
     public void init() {
         Thread dispatcher = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()){
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     metricsService.updateQueueSize(commandsQueue.size());
                     Command command = commandsQueue.take();

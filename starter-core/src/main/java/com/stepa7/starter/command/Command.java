@@ -13,13 +13,16 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Command {
-    @NotBlank @Size(max = 1000)
+    @NotBlank
+    @Size(max = 1000)
     private String description;
     @NotNull
     private Priority priority;
-    @NotBlank @Size(max = 100)
+    @NotBlank
+    @Size(max = 100)
     private String author;
-    @NotBlank @Pattern(
+    @NotBlank
+    @Pattern(
             regexp = "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?([+-]\\d{2}:\\d{2}|Z)?$",
             message = "Time must be in ISO 8601 format, e.g. 2024-07-18T15:30:00Z"
     )

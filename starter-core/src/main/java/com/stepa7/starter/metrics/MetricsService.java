@@ -4,5 +4,6 @@ import com.stepa7.starter.command.Command;
 
 public interface MetricsService {
     void recordCommandExecuted(Command command);
+
     void updateQueueSize(int size);
 }

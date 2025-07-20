@@ -14,6 +14,6 @@ public class AuditConsumer {
 
     @KafkaListener(topics = TOPIC, groupId = "my-consumer-group")
     public void consume(String info) {
-       logger.info("Received message: " + info);
+        logger.info("Received message: " + info);
     }
 }

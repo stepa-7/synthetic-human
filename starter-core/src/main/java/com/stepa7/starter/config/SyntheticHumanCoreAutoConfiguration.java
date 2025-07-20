@@ -25,7 +25,7 @@ public class SyntheticHumanCoreAutoConfiguration {
 
     @Bean
     public ThreadPoolExecutor threadPoolExecutor() {
-         return new ThreadPoolExecutor(
+        return new ThreadPoolExecutor(
                 2,
                 4,
                 20,
